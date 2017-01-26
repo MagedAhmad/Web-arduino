@@ -1,0 +1,22 @@
+/* 
+	grey : #666;
+	orange : #f50;
+	white : #fff ;
+*/
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:focus, .navbar-default .navbar-nav > .active > a:hover {
+	background-color: #f50;
+	color:#fff;
+}
+
+.orange {
+	background-color:#f50;
+	color:#fff;
+}
+
+
+#footer {
+   position:absolute;
+   bottom:0;
+   width:100%;
+   height:40px;   /* Height of the footer */
+}
