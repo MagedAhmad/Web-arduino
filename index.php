@@ -34,11 +34,11 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-
-
 <!-- End of navbar -->
+
+
 <div class="container text-center">
-	<h3 class="text-center" style="margin-top:250px;">Turn Led</h3>
+	<h3 class="text-center" style="margin-top:150px;">Turn Led</h3>
 <!-- turn led on -->
 
 	<form style="display:inline;" class="form" action="index.php" method="POST">
@@ -65,19 +65,41 @@
 
 
 
+<div class="container text-center">
+	<h3 class="text-center" style="">Turn Curtains</h3>
+<!-- turn curtains on -->
 
+	<form style="display:inline;" class="form" action="index.php" method="POST">
+		<input type="hidden" name="curtains" value="on" />
+		<input type="Submit" id="on" class="btn btn-success 
+			<?php
+				if(!empty($_POST['curtains'])){
+		 			if ($_POST['curtains']=="on") echo "btn-lg";
+		 		}
+		 	?>" value="on">
+	</form>
+
+<!-- turn curtains off  -->
+
+	<form style="display:inline;" class="form" action="index.php" method="POST">
+		<input type="hidden" name="curtains" value="off" />
+		<input type="Submit" id="off" class="btn btn-danger <?php
+				if(!empty($_POST['curtains'])){
+		 			if ($_POST['curtains']=="off") echo "btn-lg";
+		 		}
+		 	?>" value="off">
+	</form>
+</div>
 
 	<?php
 	if(!empty($_POST['turn'])) {
 		$port = fopen("/dev/ttyACM0", "w"); // Arduino port
-
 		sleep(2);
 	}
 	?>
 
-
-
 	<?php
+		
 		if(!empty($_POST['turn'])) {
 			if ($_POST['turn']=="on"){
 
@@ -96,6 +118,36 @@
 		}
 
 	?>
+	<?php
+
+	if(!empty($_POST['curtains'])) {
+		$port = fopen("/dev/ttyACM0", "w"); // Arduino port
+		sleep(2);
+	}
+	?>
+
+
+	<?php
+		
+		if(!empty($_POST['curtains'])) {
+			if ($_POST['curtains']=="on"){
+
+				fwrite($port, "m");
+
+			}
+
+			if ($_POST['curtains']=="off"){
+
+
+				fwrite($port, "s");
+
+			}
+
+			fclose($port);
+		}
+
+	?>
+	
 
 
 	<script type="text/javascript" src="assets/js/PrayTimes.js"></script>

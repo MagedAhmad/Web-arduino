@@ -64,8 +64,60 @@
 					</p>
 				</div>
 			</div>
+			<!-- <div class="col-md-6">
+				<h3>General Parking</h2>
+				<br>
+				<h4 style="display:inline;">Available places:</h4>
+				<form style="display:inline;" class="form" action="lighting.php" method="POST">
+					<input type="hidden" name="places" value="on" />
+					<input type="Submit" value="Show" style="margin-left:50px;display:inline;" class="btn btn-default">
+				</form>
+				
+				<?php
+					if(!empty($_POST['places'])) {
+						$port = fopen("/dev/ttyACM1", "w"); // Arduino port
+
+						sleep(2);
+					}
+				?>
+				<?php
+					if(!empty($_POST['places'])) {
+						fwrite($port, "p");
+						
+					}
+					fclose($port);
+				?>
+			</div> -->
 		</div>
 	</div>
+
+<!-- <?php 	
+	include "php_serial.class.php";
+
+	// Let's start the class
+	$serial = new phpSerial;
+
+	// First we must specify the device. This works on both linux and windows (if
+	// your linux serial device is /dev/ttyS0 for COM1, etc)
+	$serial->deviceSet("/dev/ttyACM1");
+
+	// Then we need to open it
+	$serial->deviceOpen();
+	$read = $serial->readPort();
+	// If you want to change the configuration, the device must be closed
+	// $serial->deviceClose();
+
+	// We can change the baud rate
+	// $serial->confBaudRate(9600);
+	if(empty($read)){
+		echo 'empty!';
+	}else {
+		echo $read;
+	}
+?>  -->
+
+
+
 
 	<!-- open port -->
 	
