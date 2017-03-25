@@ -37,6 +37,8 @@
 <!-- End of navbar -->
 
 
+
+
 <div class="container text-center">
 	<h3 class="text-center" style="margin-top:150px;">Turn Led</h3>
 <!-- turn led on -->
@@ -65,11 +67,16 @@
 
 
 
-<div class="container text-center">
+<div class="container text-center" style="margin-top:50px;">
 	<h3 class="text-center" style="">Turn Curtains</h3>
+
+	<label>Set time</label>
+	<input type="text" id="hours" name="time" placeholder="Hours">
+	<input type="text" id="minutes" name="time" placeholder="Minutes"><br>
+	<input type="submit" id="click" name="submit" value="Set time"><br>
 <!-- turn curtains on -->
 
-	<form style="display:inline;" class="form" action="index.php" method="POST">
+	<form style="display:inline;" id="submitCurtains" class="form" action="index.php" method="POST">
 		<input type="hidden" name="curtains" value="on" />
 		<input type="Submit" id="on" class="btn btn-success 
 			<?php
@@ -151,12 +158,68 @@
 
 
 	<script type="text/javascript" src="assets/js/PrayTimes.js"></script>
+	<script type="text/javascript" src="js/jquery-3.2.0.min.js"></script>
 	
+	<script type="text/javascript">
 
-	
+  $(document).ready(function(){
+    $("#click").click(function(){
+      var neededHours;
+      var neededMinutes;
+      var d = new Date();
+      
+
+      var userHours= $("#hours").val();
+      var userMinutes = $("#minutes").val();
+      var userInput = userHours+ ":" + userMinutes;
+
+      var hoursNow = d.getHours() ;
+      var minutesNow = d.getMinutes();
+
+      if(hoursNow > 12 && userHours< 12 ){
+        neededHours = userHours + (24-hoursNow);
+      }else if(hoursNow > 12 && userHours>12 && userHours>hoursNow ) {
+        neededHours = userHours- hoursNow;
+      }else if(hoursNow > 12 && userHours>12 && userHours < hoursNow ){
+        neededHours = (24-hoursNow) + userHours;
+      }else if(hoursNow < 12 && userHours < 12 && hoursNow < userHours) {
+        neededHours = userHours- hoursNow;
+      }else if(hoursNow < 12 && userHours < 12 && hoursNow > userHours) {
+        neededHours = 24 + (hoursNow-userHours);
+      }else if(hoursNow < 12 && userHours > 12 ) {
+        neededHours = userHours - hoursNow;
+      }else if(hoursNow == userHours) {
+        neededHours = 0;
+      }else if(hoursNow + 1 == userHours){
+        neededHours = 0;
+      }
+
+      if(userMinutes > minutesNow) {
+        neededMinutes = userMinutes - minutesNow;
+      }else if(userMinutes < minutesNow) {
+        neededMinutes = Number(60-minutesNow) + Number(userMinutes);
+      }else if(userMinutes == minutesNow) {
+        neededMinutes = 0;
+      }
+
+      var s = Number(neededHours*60) + Number(neededMinutes);
+      
+      var setTime = setTimeout( function ( ) { 
+          document.getElementById("submitCurtains").submit();
+      }, s*60*1000 );
+
+      if(time == userInput){
+        
+      }
+    });
+  });
+  
+ // javascript statements }, 500 ); 
+ //var setTime = setTimeout( "setTimeFunction( )", 500 ); 
+</script>
 
 	<footer id="footer" class="orange text-center">
-		<p style="margin-top:10px; font-size:14px;">All Rights Reserved Majed ahmed - 2017</p>
+		<p style="margin-top:10px; font-size:14px;">All Rights Reserved Smart Village Team - 2017</p>
 	</footer>
 
 	<script type="text/javascript" src="assets/js/bootstrap.min.js"></script>
